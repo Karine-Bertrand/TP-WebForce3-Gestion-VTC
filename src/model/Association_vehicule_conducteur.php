@@ -132,6 +132,9 @@ class Association_vehicule_conducteur extends AbstractModel
         return $this;
     }
 
+    /**
+     * @return tableau
+     */
     public static function findAll()
     {
         $bdd = self::getPdo();
@@ -151,6 +154,10 @@ class Association_vehicule_conducteur extends AbstractModel
         return $dataAsObjects;
     }
 
+    /**
+     * @param int $vehicule
+     * @param int $conducteur
+     */
     public static function store($vehicule, $conducteur)
     {
         $bdd = self::getPdo();
@@ -163,14 +170,22 @@ class Association_vehicule_conducteur extends AbstractModel
         ]);
     }
 
-    public static function delete($id){
+    /**
+     * @param int $id
+     */
+    public static function delete($id)
+    {
         $bdd = self::getPdo();
-
         $request = "DELETE FROM association_vehicule_conducteur WHERE id_association=" . $id;
         $response = $bdd->prepare($request);
         $response->execute(['id' => $id]);
     }
-
+    /**
+     * trouve la fiche association à partir de l'id
+     *
+     * @param int $id
+     * @return tableau
+     */
     public static function findOne($id)
     {
         $bdd = self::getPdo();
@@ -183,6 +198,12 @@ class Association_vehicule_conducteur extends AbstractModel
     }
 
 
+    /**
+     * trouve le conducteur associé à la fiche association
+     *
+     * @param int $id
+     * @return tableau
+     */
     public static function findOneConducteur($id) // à partir de l'id condcuteur
     {
         $bdd = self::getPdo();
@@ -197,6 +218,12 @@ class Association_vehicule_conducteur extends AbstractModel
         return $dataAsObjects;
     }
 
+    /**
+     * trouve le cehicule associé à la fiche association
+     *
+     * @param int $id
+     * @return tableau
+     */
     public static function findOneVehicule($id) // à partir de l'id vehicule
     {
         $bdd = self::getPdo();
@@ -244,6 +271,4 @@ class Association_vehicule_conducteur extends AbstractModel
             'id'        => $id
         ]);
     }
-
-
 }

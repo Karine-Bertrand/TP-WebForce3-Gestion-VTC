@@ -21,7 +21,7 @@
             <td> {{association.id_conducteur}} </br> {{association.conducteur}} </td>
             <td> <a href="{{ base_path ~ '/association/' ~ association.id_association ~ '/edit' }}"><i
                         class="fa fa-edit" aria-hidden="true"></i></a></td>
-            <td> <a href="{{ base_path ~ '/association/' ~ association.id_associationr ~ '/delete' }}"><i
+            <td> <a href="{{ base_path ~ '/association/' ~ association.id_association ~ '/delete' }}"><i
                         class="fa fa-trash" aria-hidden="true"></i></a></td>
         </tr>
         {% endfor %}
@@ -38,14 +38,14 @@
         <select name="conducteur" class="form-control">
             <option value="">Selectionnez le conducteur : </option>
             {% for conducteur in conducteurs %}
-            <option value="{{conducteur.id_conducteur}}">{{conducteur.nom}} {{conducteur.prenom}}</option>
+            <option value="{{conducteur.id_conducteur}}">{{conducteur.prenom}} {{conducteur.nom}}</option>
             {% endfor %}
         </select>
 
         <select name="vehicule" class="form-control">
             <option value="">Selectionner le véhicule : </option>
             {% for vehicule in vehicules %}
-            <option value="{{vehicule.id_vehicule}}">{{vehicule.marque}} {{vehicule.modele}}</option>
+            <option value="">{{vehicule.marque}} {{vehicule.modele}}</option>
             {% endfor %}
         </select>
 

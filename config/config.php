@@ -3,7 +3,7 @@
 /**
  * Configuration du projet (copier-coller l'url)
  */
-const BASE_PATH = "http://localhost/php/examen_4/wf3mvc-base-project-master/";
+const BASE_PATH = "http://localhost/php/examen_4/wf3mvc-base-project-master";
 
 /**
  * Configuration de la base de données

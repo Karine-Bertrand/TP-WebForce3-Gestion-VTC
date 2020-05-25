@@ -6,7 +6,6 @@ use AbstractController;
 use App\Controller\AbstractController as ControllerAbstractController;
 
 class AppController extends ControllerAbstractController
-
 {
 
     public static function index()
