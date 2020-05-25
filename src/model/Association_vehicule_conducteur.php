@@ -2,9 +2,8 @@
 
 namespace App\Model;
 
-class Conducteur extends AbstractModel
+class Association_vehicule_conducteur extends AbstractModel
 {
-
     /************
      * attributs de la classe
      * noms identiques aux champs de la bdd
@@ -13,19 +12,36 @@ class Conducteur extends AbstractModel
     /**
      * @var int
      */
+    private $id_association;
+    /**
+     * @var int
+     */
+    private $id_vehicule;
+    /**
+     * @var int
+     */
     private $id_conducteur;
-    /**
-     * @var string
-     */
-    private $prenom;
-    /**
-     * @var string
-     */
-    private $nom;
 
     /************
      * fonctions getters
      */
+
+    /**
+     * @return integer
+     */
+    public function getId_association(): int
+    {
+        return $this->id_association;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getId_vehicule(): int
+    {
+        return $this->id_vehicule;
+    }
+
     /**
      * @return integer
      */
@@ -34,29 +50,32 @@ class Conducteur extends AbstractModel
         return $this->id_conducteur;
     }
 
-    /**
-     * @return string
-     */
-    public function getPrenom(): string
-    {
-        return $this->prenom;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNom(): string
-    {
-        return $this->nom;
-    }
-
-
     /************
      * fonctions setters
      */
 
     /**
-     * @param int $id_conducteur
+     * @param integer $id_association
+     * @return self
+     */
+    public function setId_association(int $id_association): self
+    {
+        $this->id_association = $id_association;
+        return $this;
+    }
+
+    /**
+     * @param integer $id_vehicule
+     * @return self
+     */
+    public function setId_vehicule(int $id_vehicule): self
+    {
+        $this->id_vehicule = $id_vehicule;
+        return $this;
+    }
+
+    /**
+     * @param integer $id_conducteur
      * @return self
      */
     public function setId_conducteur(int $id_conducteur): self
@@ -65,31 +84,10 @@ class Conducteur extends AbstractModel
         return $this;
     }
 
-    /**
-     * @param string $prenom
-     * @return self
-     */
-    public function setPrenom(string $prenom): self
-    {
-        $this->prenom = $prenom;
-        return $this;
-    }
-
-    /**
-     * @param string $nom
-     * @return self
-     */
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
-        return $this;
-    }
-
-
     public static function findAll()
     {
         $bdd = self::getPdo();
-        $query = "SELECT * FROM Conducteur";
+        $query = "SELECT * FROM Association_vehicule_conducteur";
         $response = $bdd->prepare($query);
         $response->execute();
         $data = $response->fetchAll();
@@ -107,11 +105,12 @@ class Conducteur extends AbstractModel
 
     public static function toObject($array)
     {
-        $conducteur = new Conducteur;
-        $conducteur->setId_conducteur($array['id_conducteur']);
-        $conducteur->setPrenom($array['prenom']);
-        $conducteur->setNom($array['nom']);
+        $association = new Association_vehicule_conducteur;
+        $association->setId_association($array['id_association']);
+        $association->setId_vehicule($array['id_vehicule']);
+        $association->setId_conducteur($array['id_conducteur']);
 
-        return $conducteur;
+        return $association;
     }
+
 }

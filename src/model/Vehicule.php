@@ -131,4 +131,37 @@ class Vehicule extends AbstractModel
         $this->immatriculation = $immatriculation;
         return $this;
     }
+
+
+    public static function findAll()
+    {
+        $bdd = self::getPdo();
+        $query = "SELECT * FROM Vehicule";
+        $response = $bdd->prepare($query);
+        $response->execute();
+        $data = $response->fetchAll();
+
+        // On prépare le tableau qui contiendra nos animaux en format Object
+        $dataAsObjects = [];
+
+        // On fait un foreach de $data (données de la bdd) pour transformer chaque data en un object
+        // puis on met l'object dans le tableau $dataAsObjects
+        foreach ($data as $d) {
+            $dataAsObjects[] = self::toObject($d);
+        }
+        return $dataAsObjects;
+    }
+
+    public static function toObject($array)
+    {
+        $vehicule = new Vehicule;
+        $vehicule->setId_vehicule($array['id_vehicule']);
+        $vehicule->setMarque($array['marque']);
+        $vehicule->setModele($array['modele']);
+        $vehicule->setCouleur($array['couleur']);
+        $vehicule->setImmatriculation($array['immatriculation']);
+
+        return $vehicule;
+    }
+
 }
