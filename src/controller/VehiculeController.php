@@ -55,4 +55,32 @@ class VehiculeController extends AbstractController
     }
 
 
+    public static function edit(int $id)
+    {
+        $vehicule = Vehicule::findOne($id);
+        echo self::getTwig()->render(
+            'Vehicule/edit.html',
+            [
+                'vehiculeId'      =>  $vehicule['id_vehicule'],
+                'vehiculeMarque' =>  $vehicule['marque'],
+                'vehiculeModele' =>  $vehicule['modele'],
+                'vehiculeCouleur' =>  $vehicule['couleur'],
+                'vehiculeImmatriculation' =>  $vehicule['immatriculation']
+            ]
+        );
+    }
+    public static function update()
+    {
+        $id = $_POST['id'];
+        $marque = $_POST['marque'];
+        $modele = $_POST['modele'];
+        $couleur = $_POST['couleur'];
+        $immatriculation = $_POST['immatriculation'];
+        Vehicule::upDate($id, $marque, $modele, $couleur, $immatriculation);
+        self::list();
+    }
+
+
+
+
 }

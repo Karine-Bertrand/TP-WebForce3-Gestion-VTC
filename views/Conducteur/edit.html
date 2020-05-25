@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<h1><i class='fa fa-edit' aria-hidden="true"></i> Modification d'un conducteur</h1>
+<hr class="my-2">
+
+<form action="{{ base_path ~ '/conducteur/' ~ conducteurId ~ '/edit' }}" method="POST">
+
+    <div class="form-group">
+
+        <input type="hidden" name="id" value="{{conducteurId}}">
+        <label for="prenom">Marque : </label>
+        <input type="text" class="from-group" name="prenom" value="{{conducteurPrenom}}"></br>
+        <label for="nom">Modèle : </label>
+        <input type="text" class="from-group" name="nom" value="{{conducteurNom}}"></br>
+
+        <button class="btn btn-primary">Modifier</button>
+
+        <a class="btn btn-secondary" href="{{ base_path ~ '/conducteurs' }}" role="button">Annuler</a>
+
+    </div>
+</form>
+
+<hr class="my-2">
+
+
+
+{% endblock %}

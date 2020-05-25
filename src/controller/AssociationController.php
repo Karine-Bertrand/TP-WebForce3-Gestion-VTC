@@ -55,4 +55,28 @@ class AssociationController extends AbstractController
         Association_vehicule_conducteur::delete($id);
         self::list();
     }
+
+    public static function edit(int $id)
+    {
+        $association = Association_vehicule_conducteur::findOne($id);
+        $conducteurs = Conducteur::findAll();
+        $vehicules = Vehicule::findAll();
+         echo self::getTwig()->render(
+            'Association/edit.html',
+            [
+                    'associationId' => $association['id_association'],
+                    'conducteurs'   => $conducteurs,
+                    'vehicules' => $vehicules
+            ]
+        );
+    }
+    public static function update()
+    {
+        $id = $_POST['id'];
+        $id_vehicule = $_POST['id_vehicule'];
+        $id_conducteur = $_POST['id_conducteur'];
+        Association_vehicule_conducteur::upDate($id, $id_vehicule, $id_conducteur);
+        self::list();
+    }
+
 }

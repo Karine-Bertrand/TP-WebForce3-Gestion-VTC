@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<h1><i class='fa fa-edit' aria-hidden="true"></i> Modification d'un véhicule</h1>
+<hr class="my-2">
+
+<form action="{{ base_path ~ '/vehicule/' ~ vehciuleId ~ '/edit' }}" method="POST">
+
+    <div class="form-group">
+
+        <input type="hidden" name="id" value="{{vehiculeId}}">
+        <label for="marque">Marque : </label>
+        <input type="text" class="from-group" name="marque" value="{{vehiculeMarque}}"></br>
+        <label for="modele">Modèle : </label>
+        <input type="text" class="from-group" name="modele" value="{{vehiculeModele}}"></br>
+        <label for="couleur">Modèle : </label>
+        <input type="text" class="from-group" name="couleur" value="{{vehiculeCouleur}}"></br>
+        <label for="immatriculation">Modèle : </label>
+        <input type="text" class="from-group" name="immatriculation" value="{{vehiculeImmatriculation}}"></br>
+
+        <button class="btn btn-primary">Modifier</button>
+
+        <a class="btn btn-secondary" href="{{ base_path ~ '/vehicules' }}" role="button">Annuler</a>
+
+    </div>
+</form>
+
+<hr class="my-2">
+
+
+
+{% endblock %}

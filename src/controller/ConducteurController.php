@@ -47,5 +47,27 @@ class ConducteurController extends AbstractController
     }
 
 
+    public static function edit(int $id)
+    {
+        $conducteur = Conducteur::findOne($id);
+        echo self::getTwig()->render(
+            'Conducteur/edit.html',
+            [
+                'conducteurId'      =>  $conducteur['id_conducteur'],
+                'conducteurPrenom' =>  $conducteur['prenom'],
+                'conducteurNom' =>  $conducteur['nom'],
+            ]
+        );
+    }
+    public static function update()
+    {
+        $id = $_POST['id'];
+        $prenom = $_POST['prenom'];
+        $nom = $_POST['nom'];
+        Conducteur::upDate($id, $prenom, $nom);
+        self::list();
+    }
+
+
 }
 

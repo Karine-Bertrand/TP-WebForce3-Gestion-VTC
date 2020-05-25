@@ -171,6 +171,17 @@ class Association_vehicule_conducteur extends AbstractModel
         $response->execute(['id' => $id]);
     }
 
+    public static function findOne($id)
+    {
+        $bdd = self::getPdo();
+        $query = "SELECT * FROM association_vehicule_conducteur WHERE id_association=" . $id;
+        $response = $bdd->prepare($query);
+        $response->execute();
+        $association = $response->fetch();
+
+        return $association;
+    }
+
 
     public static function findOneConducteur($id) // à partir de l'id condcuteur
     {
@@ -218,4 +229,21 @@ class Association_vehicule_conducteur extends AbstractModel
 
         return $association;
     }
+
+
+    public static function upDate($id, $id_vehicule, $id_conducteur)
+    {
+        $bdd = self::getPdo();
+        $request =  "UPDATE Association_vehicule_conducteur 
+                SET id_vehicule = :id_vehicule, id_conducteur = :id_conducteur
+                WHERE id_association = :id";
+        $response = $bdd->prepare($request);
+        $response->execute([
+            'id_vehicule'   =>  $id_vehicule,
+            'id_conducteur'   =>  $id_conducteur,
+            'id'        => $id
+        ]);
+    }
+
+
 }

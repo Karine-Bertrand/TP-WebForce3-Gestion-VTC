@@ -200,5 +200,21 @@ class Vehicule extends AbstractModel
         $response->execute(['id' => $id]);
     }
 
+    public static function upDate($id, $marque, $modele, $couleur, $immatriculation)
+    {
+        $bdd = self::getPdo();
+        $request =  "UPDATE vehicule 
+                SET marque = :marque, modele = :modele, couleur = :couleur, immatriculation = :immatriculation
+                WHERE id_vehicule = :id";
+        $response = $bdd->prepare($request);
+        $response->execute([
+            'marque'   =>  $marque,
+            'modele'   =>  $modele,
+            'couleur'   =>  $couleur,
+            'immatriculation'   => $immatriculation,
+            'id'        => $id
+        ]);
+    }
+
 
 }

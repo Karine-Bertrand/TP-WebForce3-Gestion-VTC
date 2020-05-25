@@ -147,5 +147,17 @@ class Conducteur extends AbstractModel
         $response->execute(['id' => $id]);
     }
 
-
+    public static function upDate($id, $prenom, $nom)
+    {
+        $bdd = self::getPdo();
+        $request =  "UPDATE conducteur 
+                SET prenom = :prenom, nom = :nom
+                WHERE id_conducteur = :id";
+        $response = $bdd->prepare($request);
+        $response->execute([
+            'prenom'   =>  $prenom,
+            'nom'   =>  $nom,
+            'id'        => $id
+        ]);
+    }
 }
