@@ -14,12 +14,14 @@ class AssociationController extends AbstractController
         $associations = Association_vehicule_conducteur::findAll();
         $conducteurs = Conducteur::findAll();
         $vehicules = Vehicule::findAll();
-        echo self::getTwig()->render('Association/liste.html', 
-        [
-            'associations' => $associations,
-            'conducteurs'   => $conducteurs,
-            'vehicules' => $vehicules
-            ]);
+        echo self::getTwig()->render(
+            'Association/liste.html',
+            [
+                'associations' => $associations,
+                'conducteurs'   => $conducteurs,
+                'vehicules' => $vehicules
+            ]
+        );
     }
 
     public static function new()
@@ -48,6 +50,9 @@ class AssociationController extends AbstractController
         self::list();
     }
 
-
-
+    public static function delete(int $id)
+    {
+        Association_vehicule_conducteur::delete($id);
+        self::list();
+    }
 }

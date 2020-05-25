@@ -47,4 +47,12 @@ class VehiculeController extends AbstractController
         }
         self::list();
     }
+
+    public static function delete(int $id)
+    {
+        Vehicule::delete($id);
+        self::list();
+    }
+
+
 }

@@ -40,6 +40,11 @@ class ConducteurController extends AbstractController
         self::list();
     }
 
+    public static function delete(int $id)
+    {
+        Conducteur::delete($id);
+        self::list();
+    }
 
 
 }

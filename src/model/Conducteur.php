@@ -138,4 +138,14 @@ class Conducteur extends AbstractModel
         ]);
     }
 
+    public static function delete($id)
+    {
+        $bdd = self::getPdo();
+
+        $request = "DELETE FROM conducteur WHERE id_conducteur=" . $id;
+        $response = $bdd->prepare($request);
+        $response->execute(['id' => $id]);
+    }
+
+
 }

@@ -191,4 +191,14 @@ class Vehicule extends AbstractModel
 
     }
 
+    public static function delete($id)
+    {
+        $bdd = self::getPdo();
+
+        $request = "DELETE FROM vehicule WHERE id_vehicule=" . $id;
+        $response = $bdd->prepare($request);
+        $response->execute(['id' => $id]);
+    }
+
+
 }

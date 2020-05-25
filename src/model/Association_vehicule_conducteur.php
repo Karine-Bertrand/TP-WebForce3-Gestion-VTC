@@ -163,6 +163,14 @@ class Association_vehicule_conducteur extends AbstractModel
         ]);
     }
 
+    public static function delete($id){
+        $bdd = self::getPdo();
+
+        $request = "DELETE FROM association_vehicule_conducteur WHERE id_association=" . $id;
+        $response = $bdd->prepare($request);
+        $response->execute(['id' => $id]);
+    }
+
 
     public static function findOneConducteur($id) // à partir de l'id condcuteur
     {
