@@ -58,7 +58,7 @@ class Vehicule extends AbstractModel
      */
     public function getModele(): string
     {
-        return $this->marque;
+        return $this->modele;
     }
 
     /**
@@ -108,7 +108,7 @@ class Vehicule extends AbstractModel
      */
     public function setModele(string $modele): self
     {
-        $this->marque = $modele;
+        $this->modele = $modele;
         return $this;
     }
 
@@ -152,6 +152,19 @@ class Vehicule extends AbstractModel
         return $dataAsObjects;
     }
 
+    public static function findOne($id)
+    {
+        $bdd = self::getPdo();
+        $query = "SELECT * FROM Vehicule WHERE id_vehicule=" . $id;
+        $response = $bdd->prepare($query);
+        $response->execute();
+        $vehicule = $response->fetch();
+
+        return $vehicule;
+    }
+
+
+
     public static function toObject($array)
     {
         $vehicule = new Vehicule;
@@ -162,6 +175,20 @@ class Vehicule extends AbstractModel
         $vehicule->setImmatriculation($array['immatriculation']);
 
         return $vehicule;
+    }
+
+    public static function store($marque, $modele, $couleur, $immatriculation){
+        $bdd = self::getPdo();
+        $request =  "INSERT INTO vehicule (marque, modele, couleur, immatriculation)
+                     VALUES (:marque, :modele, :couleur, :immatriculation)";
+        $response = $bdd->prepare($request);
+        $response->execute([
+            'marque'   =>  $marque,
+            'modele'   =>  $modele,
+            'couleur'   => $couleur,
+            'immatriculation'   =>  $immatriculation
+        ]);
+
     }
 
 }

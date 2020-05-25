@@ -30,8 +30,19 @@
 
 <hr class="my-2">
 
-<a class="btn btn-primary" href="{{ base_path ~ '/conducteur/create' }}" role="button">Ajouter ce conducteur</a>
+<form action="{{ base_path ~ '/conducteur/new' }}" method="POST">
 
+    <div class="form-group">
+
+        <label for="prenom">Prénom : </label>
+        <input type="text" class="from-group" name="prenom" required></br>
+        <label for="nom">Nom : </label>
+        <input type="text" class="from-group" name="nom" required></br>
+
+        <button class="btn btn-primary">Ajouter ce conducteur</button>
+
+    </div>
+</form>
 
 
 {% endblock %}

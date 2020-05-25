@@ -34,7 +34,25 @@
 
 <hr class="my-2">
 
-<a class="btn btn-primary" href="{{ base_path ~ '/vehicule/create' }}" role="button">Ajouter ce véhicule</a>
+<form action="{{ base_path ~ '/vehicule/new' }}" method="POST">
+
+    <div class="form-group">
+
+        <label for="marque">Marque : </label>
+        <input type="text" class="from-group" name="marque" required></br>
+        <label for="modele">Modèle : </label>
+        <input type="text" class="from-group" name="modele" required></br>
+        <label for="couleur">Couleur : </label>
+        <input type="text" class="from-group" name="couleur"></br>
+        <label for="immatriculation">Immatriculation : </label>
+        <input type="text" class="from-group" name="immatriculation" size="9" required></br>
+
+        <button class="btn btn-primary">Ajouter ce véhicule</button>
+
+    </div>
+</form>
+
+
 
 
 

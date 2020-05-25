@@ -22,6 +22,24 @@ class Association_vehicule_conducteur extends AbstractModel
      */
     private $id_conducteur;
 
+    /**
+     * attributs complémentaires pour affichage seulement
+     * on reprend les noms des champs des tables conducteur et vehicule
+     */
+    /**
+     * concatenation nom + prenom du condcuteur de l'id_conducteur
+     *
+     * @var string
+     */
+    private $conducteur;
+
+    /**
+     * concatenation marque + modele de l'id_vehicule
+     *
+     * @var string
+     */
+    private $vehicule;
+
     /************
      * fonctions getters
      */
@@ -48,6 +66,16 @@ class Association_vehicule_conducteur extends AbstractModel
     public function getId_conducteur(): int
     {
         return $this->id_conducteur;
+    }
+
+    public function getConducteur(): string
+    {
+        return $this->conducteur;
+    }
+
+    public function getVehicule(): string
+    {
+        return $this->vehicule;
     }
 
     /************
@@ -84,6 +112,26 @@ class Association_vehicule_conducteur extends AbstractModel
         return $this;
     }
 
+    /**
+     * @param string $conducteur
+     * @return self
+     */
+    public function setConducteur(string $conducteur): self
+    {
+        $this->conducteur = $conducteur;
+        return $this;
+    }
+
+    /**
+     * @param string $vehicule
+     * @return self
+     */
+    public function setVehicule(string $vehicule): self
+    {
+        $this->vehicule = $vehicule;
+        return $this;
+    }
+
     public static function findAll()
     {
         $bdd = self::getPdo();
@@ -103,6 +151,48 @@ class Association_vehicule_conducteur extends AbstractModel
         return $dataAsObjects;
     }
 
+    public static function store($vehicule, $conducteur)
+    {
+        $bdd = self::getPdo();
+        $request =  "INSERT INTO association_vehicule_conducteur (id_vehicule, id_conducteur)
+                     VALUES (:vehicule, :conducteur)";
+        $response = $bdd->prepare($request);
+        $response->execute([
+            'vehicule'   =>  $vehicule,
+            'conducteur'   =>  $conducteur,
+        ]);
+    }
+
+
+    public static function findOneConducteur($id) // à partir de l'id condcuteur
+    {
+        $bdd = self::getPdo();
+        $query = "SELECT * FROM Association_vehicule_conducteur WHERE id_conducteur=" . $id;
+        $response = $bdd->prepare($query);
+        $response->execute();
+        $data = $response->fetchAll();
+        $dataAsObjects = [];
+        foreach ($data as $d) {
+            $dataAsObjects[] = self::toObject($d);
+        }
+        return $dataAsObjects;
+    }
+
+    public static function findOneVehicule($id) // à partir de l'id vehicule
+    {
+        $bdd = self::getPdo();
+        $query = "SELECT * FROM Association_vehicule_conducteur WHERE id_vehicule=" . $id;
+        $response = $bdd->prepare($query);
+        $response->execute();
+        $data = $response->fetchAll();
+        $dataAsObjects = [];
+        foreach ($data as $d) {
+            $dataAsObjects[] = self::toObject($d);
+        }
+        return $dataAsObjects;
+    }
+
+
     public static function toObject($array)
     {
         $association = new Association_vehicule_conducteur;
@@ -110,7 +200,14 @@ class Association_vehicule_conducteur extends AbstractModel
         $association->setId_vehicule($array['id_vehicule']);
         $association->setId_conducteur($array['id_conducteur']);
 
+        /** recherche des infos du conducteur à partir de l'id */
+        $conducteur = Conducteur::findOne($array['id_conducteur']);
+        $association->setConducteur($conducteur['prenom'] . " " . $conducteur['nom']);
+
+        /** recherche des infos du vehicule à partir de l'id */
+        $vehicule = Vehicule::findOne($array['id_vehicule']);
+        $association->setVehicule($vehicule['marque'] . " " . $vehicule['modele']);
+
         return $association;
     }
-
 }

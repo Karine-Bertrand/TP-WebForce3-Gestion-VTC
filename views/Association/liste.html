@@ -17,10 +17,10 @@
         {% for association in associations %}
         <tr>
             <td> {{association.id_association}} </td>
-            <td> {{association.id_vehicule}} </td>
-            <td> {{association.id_conducteur}} </td>
-            <td> <a href="{{ base_path ~ '/association/' ~ association.id_association ~ '/edit' }}"><i class="fa fa-edit"
-                        aria-hidden="true"></i></a></td>
+            <td> {{association.id_vehicule}} </br> {{association.vehicule}}</td>
+            <td> {{association.id_conducteur}} </br> {{association.conducteur}} </td>
+            <td> <a href="{{ base_path ~ '/association/' ~ association.id_association ~ '/edit' }}"><i
+                        class="fa fa-edit" aria-hidden="true"></i></a></td>
             <td> <a href="{{ base_path ~ '/association/' ~ association.id_associationr ~ '/delete' }}"><i
                         class="fa fa-trash" aria-hidden="true"></i></a></td>
         </tr>
@@ -30,7 +30,30 @@
 
 <hr class="my-2">
 
-<a class="btn btn-primary" href="{{ base_path ~ '/association/create' }}" role="button">Ajouter cette association</a>
+<form action="{{ base_path ~ '/association/new' }}" method="POST">
+
+    <div class="form-group">
+
+
+        <select name="conducteur" class="form-control">
+            <option value="">Selectionnez le conducteur : </option>
+            {% for conducteur in conducteurs %}
+            <option value="{{conducteur.id_conducteur}}">{{conducteur.nom}} {{conducteur.prenom}}</option>
+            {% endfor %}
+        </select>
+
+        <select name="vehicule" class="form-control">
+            <option value="">Selectionner le véhicule : </option>
+            {% for vehicule in vehicules %}
+            <option value="{{vehicule.id_vehicule}}">{{vehicule.marque}} {{vehicule.modele}}</option>
+            {% endfor %}
+        </select>
+
+
+        <button class="btn btn-primary">Ajouter cette association</button>
+
+    </div>
+</form>
 
 
 

@@ -105,6 +105,17 @@ class Conducteur extends AbstractModel
         return $dataAsObjects;
     }
 
+    public static function findOne($id)
+    {
+        $bdd = self::getPdo();
+        $query = "SELECT * FROM Conducteur WHERE id_conducteur=" . $id;
+        $response = $bdd->prepare($query);
+        $response->execute();
+        $conducteur = $response->fetch();
+
+        return $conducteur;
+    }
+
     public static function toObject($array)
     {
         $conducteur = new Conducteur;
@@ -114,4 +125,17 @@ class Conducteur extends AbstractModel
 
         return $conducteur;
     }
+
+    public static function store($prenom, $nom)
+    {
+        $bdd = self::getPdo();
+        $request =  "INSERT INTO conducteur (prenom, nom)
+                     VALUES (:prenom, :nom)";
+        $response = $bdd->prepare($request);
+        $response->execute([
+            'prenom'   =>  $prenom,
+            'nom'   =>  $nom,
+        ]);
+    }
+
 }
